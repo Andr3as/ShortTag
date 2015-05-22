@@ -1,0 +1,19 @@
+{
+    "name"    : "shortexif",
+    "productName": "ShortExif",
+    "version" : "0.1.0",
+    "description": "A small tool to edit fast exif data of an image.",
+    "author"  : {
+        "name" : "Andreas Baumann",
+        "email" : "andranode@gmail.com",
+        "url" : "https://andrano.de"
+    },
+    "license" : "MIT",
+    "homepage": "https://andrano.de",
+    "repository" : { 
+        "type" : "git",
+        "url" : "https://github.com/Andr3as/ShortExif.git"
+    },
+
+    "main"    : "main.js"
+}

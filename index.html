@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        remote = require('remote');
+        app = remote.require('app');
+        document.title = app.getName();
+        //Workaround since including with script tag does not work
+        window.$ = window.jQuery = require('./vendor/jquery/jquery.min.js');
+    </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/webpage.js"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+</head>
+<body>
+    <div id="dropzone">
+        <i class="glyphicon glyphicon-camera"></i>
+        <p>Drop your files to open them</p>
+    </div>
+</body>
+</html>

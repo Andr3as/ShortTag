@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        remote = require('remote');
+        app = remote.require('app');
+        document.title = app.getName();
+        //Workaround since including with script tag does not work
+        window.$ = window.jQuery = require('./vendor/jquery/jquery.min.js');
+    </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Hello World!</h1>
+    We are using io.js <script>document.write(process.version)</script>
+    and Electron <script>document.write(process.versions['electron'])</script>
+    and jQuery <script>document.write($().jquery)</script>.
+</body>
+</html>

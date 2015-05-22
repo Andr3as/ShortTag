@@ -1,0 +1,17 @@
+body {
+	margin: 20px;
+}
+
+#dropzone {
+	border: 4px dashed #ccc;
+	cursor: pointer;
+	text-align: center;
+}
+
+#dropzone .glyphicon-camera {
+	font-size: 150px;
+}
+
+#dropzone p {
+	font-size: 30px;
+}
