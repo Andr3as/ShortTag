@@ -1,0 +1,32 @@
+{
+	"cancel": "Abbrechen",
+	"delete": "Löschen",
+	"save": "Speichern",
+
+	"do you want to save your changes?": "Möchten Sie Ihre Änderungen speichern?",
+
+	"about ${0}": "Über ${0}",
+	"services": "Dienste",
+	"hide ${0}": "${0} ausblenden",
+	"hide others": "Andere ausblenden",
+	"show all": "Alle einblenden",
+	"quit ${0}": "${0} beenden",
+	
+	"file": "Datei",
+	"new…": "Neu…",
+	"open…": "Öffnen…",
+
+	"view": "Ansicht",
+	"reload": "Neu laden",
+	"toggle devtools": "Entwicklertools umschalten",
+
+	"window": "Fenster",
+	"minimize": "Minimieren",
+	"close": "Schließen",
+	"bring all to front": "Alle nach vorne bringen",
+
+	"help": "Hilfe",
+
+
+	"drop your file to open it": "Datei hierher ziehen zum Öffnen"
+}

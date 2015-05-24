@@ -1,17 +1,85 @@
 body {
-	margin: 20px;
+    background: #303030;
+    margin: 20px;
 }
 
 #dropzone {
-	border: 4px dashed #ccc;
-	cursor: pointer;
-	text-align: center;
+    border: 4px dashed #ccc;
+    color: #ccc;
+    cursor: pointer;
+    text-align: center;
 }
 
 #dropzone .glyphicon-camera {
-	font-size: 150px;
+    font-size: 150px;
 }
 
 #dropzone p {
-	font-size: 30px;
+    font-size: 30px;
+}
+
+/* Loading circle */
+.spinner {
+    width: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 60px;
+}
+
+.spinner-double-section-far {
+    display: block;
+    float: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 6.25px solid #aaa;
+    -webkit-animation: spinner 1.5s linear infinite;
+    animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* Sections */
+.spinner-double-section-far {
+    position: relative;
+}
+.spinner-double-section-far:before,
+.spinner-double-section-far:after {
+    content: '';
+    position: absolute;
+    top: -6.25px;
+    left: -6.25px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 6.25px solid transparent;
+    border-top-color: tomato;
+}
+.spinner-double-section-far:after {
+    border-top-color: transparent;
+    border-bottom-color: tomato;
+}
+
+.spinner-double-section-far:before,
+.spinner-double-section-far:after {
+    top: -18.75px;
+    left: -18.75px;
+    width: 125px;
+    height: 125px;
 }

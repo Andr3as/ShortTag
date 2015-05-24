@@ -1,81 +1,87 @@
 module.exports = function(app){
+    var i18n = app.i18n;
     return [
     {
-        label: 'Electron',
+        label: app.getName(),
         submenu: [
             {
-                label: 'About Electron',
+                label: i18n("About ${0}", [app.getName()]),
                 selector: 'orderFrontStandardAboutPanel:'
             },
             {
                 type: 'separator'
             },
             {
-                label: 'Services',
+                label: i18n("Services"),
                 submenu: []
             },
             {
                 type: 'separator'
             },
             {
-                label: 'Hide Electron',
+                label: i18n("Hide ${0}", [app.getName()]),
                 accelerator: 'Command+H',
                 selector: 'hide:'
             },
             {
-                label: 'Hide Others',
+                label: i18n("Hide Others"),
                 accelerator: 'Command+Shift+H',
                 selector: 'hideOtherApplications:'
             },
             {
-                label: 'Show All',
+                label: i18n("Show All"),
                 selector: 'unhideAllApplications:'
             },
             {
                 type: 'separator'
             },
             {
-                label: 'Quit',
+                label: i18n("Quit ${0}", [app.getName()]),
                 accelerator: 'Command+Q',
                 click: function() { app.quit(); }
             },
         ]
     },
     {
-        label: 'File',
+        label: i18n("File"),
         submenu: [
             {
-                label: 'Open…',
+                label: i18n("New…"),
+                accelerator: 'Command+N',
+                click: function() { app.emit("new"); }
+            },
+            {
+                label: i18n("Open…"),
                 accelerator: 'Command+O',
                 click: function() { app.emit("open"); }
             }
         ]
     },
     {
-        label: 'View',
+        label: i18n("View"),
         submenu: [
             {
-                label: 'Reload',
+                label: i18n("Reload"),
                 accelerator: 'Command+R',
                 click: function() { app.emit("reload"); }
             },
             {
-                label: 'Toggle DevTools',
+                label: i18n("Toggle DevTools"),
                 accelerator: 'F12',
                 click: function() { app.emit("toggleDevTools"); }
             }
         ]
     },
     {
-        label: 'Window',
+        label: i18n("Window"),
         submenu: [
             {
-                label: 'Minimize',
+                label: i18n("Minimize"),
                 accelerator: 'Command+M',
                 selector: 'performMiniaturize:'
             },
             {
-                label: 'Close',
+                label: i18n("Close"),
                 accelerator: 'Command+W',
                 selector: 'performClose:'
             },
@@ -83,13 +89,13 @@ module.exports = function(app){
                 type: 'separator'
             },
             {
-                label: 'Bring All to Front',
+                label: i18n("Bring All to Front"),
                 selector: 'arrangeInFront:'
             },
         ]
     },
     {
-        label: 'Help',
+        label: i18n("Help"),
         submenu: []
     }
 ];}

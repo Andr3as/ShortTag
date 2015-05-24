@@ -1,47 +1,38 @@
 app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var Menu = require('menu');
+var MenuItem = require('menu-item');
 var Loader = require(__dirname + '/libs/loader.js');
 var Butler = require(__dirname + '/libs/butler.js');
+var i18n = require(__dirname + '/libs/i18n.js');
 
 //Do initial stuff
 //Save basepath
 app.basepath = __dirname;
+app.windows = {};
 
-//Call loader init
+//Call libs init
+app.i18n = i18n.init(app);
+app.Loader = Loader;
 Loader.init(app);
 Butler.init(app);
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the javascript object is GCed.
-var mainWindow = null;
-
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-    if (process.platform != 'darwin')
+    if (process.platform != 'darwin') {
         app.quit();
+    }
 });
 
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
-    // Create the browser window.
-    mainWindow = new BrowserWindow({width: 500, height: 300});
+    // Create start window.
+    Butler.openStartWindow();
     
     if (process.platform == 'darwin') {
         app.dock.bounce();
     }
-
-    // and load the index.html of the app.
-    mainWindow.loadUrl('file://' + __dirname + '/index.html');
-
-    // Emitted when the window is closed.
-    mainWindow.on('closed', function() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
-    });
 
     // Load main window menu
     var template = Loader.loadMenu('app.js')(app);
