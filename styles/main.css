@@ -1,12 +1,14 @@
 body {
     background: #303030;
-    margin: 20px;
 }
+
+/* Starting window */
 
 #dropzone {
     border: 4px dashed #ccc;
     color: #ccc;
     cursor: pointer;
+    margin: 20px 5px;
     text-align: center;
 }
 
@@ -16,6 +18,22 @@ body {
 
 #dropzone p {
     font-size: 30px;
+}
+
+/* Editing window */
+.edit {
+    color: white;
+    margin: 20px 0;
+}
+
+.edit .informations td:nth-of-type(2) label {
+    overflow: scroll;
+    width: 270px;
+}
+
+#image {
+    border: 2px solid white;
+    width: 100%;
 }
 
 /* Loading circle */

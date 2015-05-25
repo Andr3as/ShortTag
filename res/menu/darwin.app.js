@@ -54,6 +54,16 @@ module.exports = function(app){
                 label: i18n("Open…"),
                 accelerator: 'Command+O',
                 click: function() { app.emit("open"); }
+            },
+            {
+                label: i18n("Save…"),
+                accelerator: 'Command+S',
+                click: function() { app.emit("save"); }
+            },
+            {
+                label: i18n("Save without Exif"),
+                accelerator: 'Command+Shift+S',
+                click: function() { app.emit("save_without_exif"); }
             }
         ]
     },

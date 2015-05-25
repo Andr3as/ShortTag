@@ -1,6 +1,6 @@
 {
-    "name"    : "shortexif",
-    "productName": "ShortExif",
+    "name"    : "shorttags",
+    "productName": "ShortTags",
     "version" : "0.1.0",
     "description": "A small tool to edit fast exif data of an image.",
     "author"  : {
@@ -12,7 +12,7 @@
     "homepage": "https://andrano.de",
     "repository" : { 
         "type" : "git",
-        "url" : "https://github.com/Andr3as/ShortExif.git"
+        "url" : "https://github.com/Andr3as/ShortTags.git"
     },
 
     "main"    : "main.js"

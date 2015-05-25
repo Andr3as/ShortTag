@@ -1,4 +1,6 @@
 {
+	"MM/DD/YYYY hh:mm": " DD.MM.YYYY  hh:mm [Uhr]",
+
 	"cancel": "Abbrechen",
 	"delete": "Löschen",
 	"save": "Speichern",
@@ -15,6 +17,8 @@
 	"file": "Datei",
 	"new…": "Neu…",
 	"open…": "Öffnen…",
+	"save…": "Speichern…",
+	"save without exif": "Ohne Exif speichern",
 
 	"view": "Ansicht",
 	"reload": "Neu laden",
@@ -28,5 +32,12 @@
 	"help": "Hilfe",
 
 
-	"drop your file to open it": "Datei hierher ziehen zum Öffnen"
+	"drop your file to open it": "Datei hierher ziehen zum Öffnen",
+
+	"informations": "Informationen",
+	"path": "Dateipfad",
+	"file size": "Dateigröße",
+	"created": "Erstellt",
+
+	"image size" : "Bildgröße"
 }

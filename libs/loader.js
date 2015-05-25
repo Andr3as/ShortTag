@@ -1,6 +1,6 @@
 var fs = require('fs');
-var settings = require(__dirname + '/settings.js');
 var i18n = null;
+var settings = null;
 
 var Loader = {
 
@@ -9,6 +9,7 @@ var Loader = {
 	init: function(app) {
 		this.app = app;
 		i18n = this.app.i18n;
+		settings = this.app.settings;
 	},
 
 	load: function(path, string) {
@@ -30,11 +31,24 @@ var Loader = {
 
 	loadTemplate: function(name, args) {
 		args = args || [];
+		if (args.length == 0) {
+			//Try to load language template file
+			args = this.loadLanguageTemplate(name.replace("html", "json"));
+		}
 		var template = this.__load("templates", name, true);
 		for (var i = 0; i < args.length; i++) {
-			template = template.replace("${" + i + "}", i18n(args[i]));
+			template = template.replace(new RegExp("\\$\\{" + i + "\\}", "g"), i18n(args[i]));
 		};
 		return template;
+	},
+
+	loadLanguageTemplate: function(name) {
+		try {
+			var template = this.__load("templates", name, true);
+			return JSON.parse(template);
+		} catch(e) {
+			return [];
+		}
 	},
 
 	__exists: function(path) {

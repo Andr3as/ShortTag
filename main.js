@@ -5,11 +5,14 @@ var MenuItem = require('menu-item');
 var Loader = require(__dirname + '/libs/loader.js');
 var Butler = require(__dirname + '/libs/butler.js');
 var i18n = require(__dirname + '/libs/i18n.js');
+var settings = require(__dirname + '/libs/settings.js');
 
 //Do initial stuff
 //Save basepath
 app.basepath = __dirname;
 app.windows = {};
+
+app.settings = settings;
 
 //Call libs init
 app.i18n = i18n.init(app);
@@ -22,6 +25,11 @@ app.on('window-all-closed', function() {
     if (process.platform != 'darwin') {
         app.quit();
     }
+});
+
+app.on('open-file', function(e, path){
+    Butler.openImage(path);
+    e.preventDefault();
 });
 
 // This method will be called when Electron has done everything
