@@ -6,8 +6,10 @@
 	"save": "Speichern",
 
 	"do you want to save your changes?": "Möchten Sie Ihre Änderungen speichern?",
+	"your changes will be lost if you don't save them.": "Ihre Änderunen gehen verloren, wenn Sie sie nicht speichern.",
 
 	"about ${0}": "Über ${0}",
+	"settings…": "Einstellungen…",
 	"services": "Dienste",
 	"hide ${0}": "${0} ausblenden",
 	"hide others": "Andere ausblenden",
@@ -19,6 +21,11 @@
 	"open…": "Öffnen…",
 	"save…": "Speichern…",
 	"save without exif": "Ohne Exif speichern",
+
+	"edit": "Bearbeiten",
+	"cut": "Ausschneiden",
+	"copy": "Kopieren",
+	"paste": "Einfügen",
 
 	"view": "Ansicht",
 	"reload": "Neu laden",
@@ -39,5 +46,13 @@
 	"file size": "Dateigröße",
 	"created": "Erstellt",
 
-	"image size" : "Bildgröße"
+	"image size" : "Bildgröße",
+
+	"tag name": "Eigenschaft",
+	"value": "Wert",
+
+	"settings": "Einstellungen",
+	"language": "Sprache",
+	"app restarts to apply new settings.": "Die Anwendung wird neu gestartet um neue Einstellugen anzuwenden.",
+	"unable to save settings!": "Speichern der Einstellungen nicht möglich!"
 }

@@ -4,5 +4,8 @@
 	"File Size",
 	"Created",
 
-	"Image Size"
+	"Image Size",
+
+	"Tag Name",
+	"Value"
 ]

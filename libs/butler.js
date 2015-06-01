@@ -1,5 +1,7 @@
 var BrowserWindow = require('browser-window');
 var Dialog = require('dialog');
+var IPC = require('ipc');
+var exec = require('child_process').exec;
 
 var i18n = null;
 var Loader  = null;
@@ -9,6 +11,7 @@ var Butler = {
 
     app: null,
     startWindows: [],
+    imReg: /\.jpe?g$/i,
 
     init: function(app) {
         var _this = this;
@@ -19,11 +22,35 @@ var Butler = {
         Image = require(app.basepath + '/libs/image.js');
         Image.init(app);
         //Register listeners
+        app.on('cut', function(){
+            var focused = _this.__getFocusedWindow();
+            if (typeof(focused) != 'undefined') {
+                focused.webContents.cut();
+            }
+        });
+        app.on('copy', function(){
+            var focused = _this.__getFocusedWindow();
+            if (typeof(focused) != 'undefined') {
+                focused.webContents.copy();
+            }
+        });
         app.on('new', function(){
             _this.openStartWindow();
         });
         app.on('open', function(){
             _this.open();
+        });
+        app.on('open_settings', function(){
+            _this.openSettings();
+        });
+        app.on('open_website', function(url){
+            _this.__openWebsite(url);
+        });
+        app.on('paste', function(){
+            var focused = _this.__getFocusedWindow();
+            if (typeof(focused) != 'undefined') {
+                focused.webContents.paste();
+            }
         });
         app.on('reload', function(){
             var focused = _this.__getFocusedWindow();
@@ -42,6 +69,19 @@ var Butler = {
             if (typeof(focused) != 'undefined') {
                 focused.toggleDevTools();
             }
+        });
+        //IPC messages
+        IPC.on('error', function(e, args){
+            if (typeof(args.title) != 'undefined' && typeof(args.content) != 'undefined') {
+                Dialog.showErrorBox(i18n(args.title), i18n(args.content));
+            }
+        });
+        IPC.on('changedSettings', function(){
+            Dialog.showErrorBox(i18n("App restarts to apply new settings."), "");
+            //Confirm dialog
+            var exec = require('child_process').exec;
+            exec(process.execPath + " " + app.basepath);
+            app.quit();
         });
     },
 
@@ -64,11 +104,15 @@ var Butler = {
     },
 
     openImage: function(path) {
-        var w = this.__openWindow({width: 800, height: 500}, false);
-        var content = Loader.loadTemplate("edit.html");
+        if (!this.imReg.test(path)) {
+            return false; //File type not supported
+        }
+
+        var w = this.__openWindow({width: 800, height: 500, "min-width": 570, "min-height": 250}, false);
         
         //Retrieve exif data
         var data = Image.getImageInformation(path);
+        var content = Loader.loadTemplate("edit.html");
 
         w.webContents.on('did-finish-load', function() {
             w.webContents.send('setContent', content);
@@ -93,7 +137,16 @@ var Butler = {
             this.app.addRecentDocument(path);
         }
         
+        w.unsaved = false;
         return w;
+    },
+
+    openSettings: function() {
+        var w = this.__openWindow({width: 500, height: 280}, false);
+        w.webContents.on('did-finish-load', function(){
+            var content = Loader.loadTemplate("settings.html");
+            w.webContents.send('setContent', content);
+        });
     },
 
     openStartWindow: function() {
@@ -103,16 +156,12 @@ var Butler = {
         w.webContents.on('did-finish-load', function() {
             w.webContents.send('setContent', content);
         });
-        w.webContents.on('will-navigate', function(e, url){
-            //Multidrop?
-            _this.openImage(url);
-            e.preventDefault();
-        });
         
         return w;
     },
 
     save: function(w, saveWithExif) {
+        var _this = this;
         if (typeof(w) == 'boolean') {
             saveWithExif = w;
             w = undefined;
@@ -121,44 +170,32 @@ var Butler = {
         }
 
         w = w || BrowserWindow.getFocusedWindow();
-        if (typeof(w) == 'undefined' || w == null || w.isStartWindow || typeof(w.path) == 'undefined') {
+        if (typeof(w) == 'undefined' || w == null || w.isStartWindow || typeof(w.path) == 'undefined' || !w.unsaved) {
             console.log("Unable to save");
             return false;
         }
-        //Do Stuff
-        w.unsaved = false;
+
+        //Check existence of tag names
+        
+
         var path = w.path;
 
         var binary = Image.getImageAsBinary(path);
         if (saveWithExif) {
             //Save image with exif data
             //Get exif data…
-            /*
-            var exif = {};
-            binary = Image.addExif(binary, exif);
-            */
-            console.log("save");
-            return false;
+            w.webContents.send('getExifData', path);
+            IPC.on('returnExifData', function(e, args){
+                //console.log(args, 135);
+                console.log(new Date());
+                binary = Image.addExif(binary, args);
+                _this.__saveImage(w, path, binary);
+            });
         } else {
             //Save image without exif data
             binary = Image.rmExif(binary);
+            this.__saveImage(w, path, binary);
         }
-
-        var name = this.__basename(path);
-        var newPath = Dialog.showSaveDialog(w,{
-                    filters: [
-                        { name: 'Images', extensions: ['jpg'] }
-                    ],
-                    title: name,
-                    defaultPath: path
-                });
-
-        if (typeof(newPath) == 'undefined') {
-            console.log("unsaved");
-            return false;
-        }
-
-        Image.save(newPath, binary);
     },
 
     __basename: function(path, suffix) {
@@ -178,6 +215,16 @@ var Butler = {
         return b;
     },
 
+    __getFocusedWindow: function() {
+        return BrowserWindow.getFocusedWindow();
+    },
+
+    __openWebsite: function(url) {
+        if (typeof(url) == 'string') {
+            exec("open " + url, function(){});
+        }
+    },
+
     __openWindow: function(options, isStartWindow) {
         var _this = this;
         var w     = new BrowserWindow(options);
@@ -191,7 +238,8 @@ var Butler = {
             if (w.unsaved) {
                 var buttons = [i18n("Save"), i18n("Cancel"), i18n("Delete")];
                 var returnCode = Dialog.showMessageBox(w, {type: 'warning', buttons: buttons,
-                                    message: i18n("Do you want to save your changes?")});
+                                    message: i18n("Do you want to save your changes?"),
+                                    detail: i18n("Your changes will be lost if you don't save them.")});
                 switch(buttons[returnCode]) {
                     case i18n("Save"):
                         _this.save();
@@ -207,13 +255,34 @@ var Butler = {
         w.on('closed', function(){
             delete _this.app.windows[id];
         });
+        w.webContents.on('will-navigate', function(e, url){
+            //Multidrop?
+            console.log(url);
+            _this.openImage(url.replace("file://", "")); 
+            e.preventDefault();
+        });
         //Show window
         w.show();
         return w;
     },
 
-    __getFocusedWindow: function() {
-        return BrowserWindow.getFocusedWindow();
+    __saveImage: function(w, path, binary) {
+        var name = this.__basename(path);
+        var newPath = Dialog.showSaveDialog(w,{
+                    filters: [
+                        { name: 'Images', extensions: ['jpg'] }
+                    ],
+                    title: name,
+                    defaultPath: path
+                });
+
+        if (typeof(newPath) == 'undefined') {
+            return false;
+        }
+
+        w.unsaved = false;
+
+        Image.save(newPath, binary);
     }
 }
 

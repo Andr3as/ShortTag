@@ -51,6 +51,11 @@ var Loader = {
 		}
 	},
 
+	loadValues: function(name) {
+		var values = this.__load("values", name, true);
+		return JSON.parse(values);
+	},
+
 	__exists: function(path) {
 		try {
 			fs.accessSync(path);

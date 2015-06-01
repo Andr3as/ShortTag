@@ -2,6 +2,18 @@ body {
     background: #303030;
 }
 
+.input-group-addon {
+    border: none;
+}
+
+.icon-lg {
+    font-size: 50px;
+}
+
+.no_margin {
+    margin: 0;
+}
+
 /* Starting window */
 
 #dropzone {
@@ -26,14 +38,64 @@ body {
     margin: 20px 0;
 }
 
+.edit>div {
+    overflow-y: scroll;
+}
+
+.edit .exif td {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+}
+
+.edit .exif .btn-success {
+    margin-top: -2px;
+}
+
+.edit .exif .btn-danger {
+    font-size: 15px;
+}
+
+.edit .exif input {
+    color: black;
+}
+
 .edit .informations td:nth-of-type(2) label {
     overflow: scroll;
-    width: 270px;
 }
 
 #image {
     border: 2px solid white;
     width: 100%;
+}
+
+/* Settings window */
+.settings {
+    color: white;
+}
+
+.settings header {
+    display: flex;
+    font-size: 50px;
+}
+
+.settings header .glyphicon {
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+.settings table {
+    font-size: 25px;
+    width: 100%
+}
+
+.settings tr td:nth-of-type(1) {
+    padding-left: 10px;
+    width:  50%;
+}
+
+.settings label {
+    color: wheat;
+    text-align: center;
 }
 
 /* Loading circle */

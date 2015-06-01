@@ -12,6 +12,14 @@ module.exports = function(app){
                 type: 'separator'
             },
             {
+                label: i18n("Settings…"),
+                accelerator: 'Command+,',
+                click: function() { app.emit("open_settings"); }
+            },
+            {
+                type: 'separator'
+            },
+            {
                 label: i18n("Services"),
                 submenu: []
             },
@@ -56,6 +64,9 @@ module.exports = function(app){
                 click: function() { app.emit("open"); }
             },
             {
+                type: 'separator'
+            },
+            {
                 label: i18n("Save…"),
                 accelerator: 'Command+S',
                 click: function() { app.emit("save"); }
@@ -64,6 +75,26 @@ module.exports = function(app){
                 label: i18n("Save without Exif"),
                 accelerator: 'Command+Shift+S',
                 click: function() { app.emit("save_without_exif"); }
+            }
+        ]
+    },
+    {
+        label: i18n("Edit"),
+        submenu: [
+            {
+                label: i18n("Cut"),
+                accelerator: 'Command+X',
+                click: function() { app.emit("cut"); }
+            },
+            {
+                label: i18n("Copy"),
+                accelerator: 'Command+C',
+                click: function() { app.emit("copy"); }
+            },
+            {
+                label: i18n("Paste"),
+                accelerator: 'Command+V',
+                click: function() { app.emit("paste"); }
             }
         ]
     },
@@ -106,6 +137,16 @@ module.exports = function(app){
     },
     {
         label: i18n("Help"),
-        submenu: []
+        submenu: [
+            {
+                label: i18n("${0} Help", [app.getName()]),
+                accelerator: 'Command+?',
+                click: function() { app.emit("open_website", "http://github.com/Andr3as/"); }
+            },
+            {
+                label: i18n("Exif Tags from ExifTool"),
+                click: function() { app.emit("open_website", "http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html"); }
+            }
+        ]
     }
 ];}

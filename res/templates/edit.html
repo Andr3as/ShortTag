@@ -1,9 +1,29 @@
 <div class="edit">
-    <div class="col-xs-6">
-        <div class="exif">
-            <div class="spinner">
-                <span class="spinner-double-section-far"></span>
-            </div>
+    <div class="col-xs-6 exif">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>
+                            <button class="btn btn-xs btn-success addExifLine"><i class="glyphicon glyphicon-plus"></i></button>
+                            <label>${5}</label>
+                        </td>
+                        <td><label>${6}</label></td>
+                        <td>
+                            <button class="btn btn-xs btn-danger rmAllLines"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            <div class="spinner">
+                                <span class="spinner-double-section-far"></span>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="col-xs-6 informations">
