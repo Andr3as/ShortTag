@@ -3,7 +3,8 @@ var child = require('child_process');
 
 var piexif = require("piexifjs");
 var sizeOf = require('image-size');
-var moment, i18n;
+var moment = require('moment');
+var i18n;
 
 var Image = {
 
@@ -13,7 +14,6 @@ var Image = {
     init: function(app) {
         this.app = app;
         i18n = this.app.i18n;
-        moment = require(app.basepath + "/vendor/moment.js");
         this.synonyms = app.Loader.loadValues("synonyms.json");
     },
 

@@ -14,8 +14,9 @@
 
     },
     "dependencies": {
-        "image-size": "0.3.5",
         "exif": "0.4.0",
+        "image-size": "0.3.5",
+        "moment": "2.10.3",
         "piexifjs": "1.0.0"
     },
     "repository" : { 
