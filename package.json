@@ -11,7 +11,7 @@
     "license" : "MIT",
     "homepage": "https://andrano.de",
     "devDependencies": {
-
+        "jshint": "latest"
     },
     "dependencies": {
         "exif": "0.4.0",
@@ -24,7 +24,7 @@
         "url" : "https://github.com/Andr3as/ShortTags.git"
     },
     "scripts": {
-
+        "lint": "jshint */**.js && csslint */**.css"
     },
 
     "main"    : "main.js"

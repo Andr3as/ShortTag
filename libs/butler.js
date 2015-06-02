@@ -71,11 +71,6 @@ var Butler = {
             }
         });
         //IPC messages
-        IPC.on('error', function(e, args){
-            if (typeof(args.title) != 'undefined' && typeof(args.content) != 'undefined') {
-                Dialog.showErrorBox(i18n(args.title), i18n(args.content));
-            }
-        });
         IPC.on('changedSettings', function(){
             Dialog.showErrorBox(i18n("App restarts to apply new settings."), "");
             //Confirm dialog
@@ -83,10 +78,18 @@ var Butler = {
             exec(process.execPath + " " + app.basepath);
             app.quit();
         });
+        IPC.on('error', function(e, args){
+            if (typeof(args.title) != 'undefined' && typeof(args.content) != 'undefined') {
+                Dialog.showErrorBox(i18n(args.title), i18n(args.content));
+            }
+        });
+        IPC.on('open', function(){
+            _this.open();
+        });
     },
 
     open: function() {
-        files = Dialog.showOpenDialog({
+        var files = Dialog.showOpenDialog({
             filters: [
                 { name: 'Images', extensions: ['jpg'] }
             ],
@@ -100,7 +103,7 @@ var Butler = {
 
         for (var i = 0; i < files.length; i++) {
             this.openImage(files[i]);
-        };
+        }
     },
 
     openImage: function(path) {
@@ -125,12 +128,12 @@ var Butler = {
 
         w.path = path;
         
-        ws = BrowserWindow.getAllWindows();
+        var ws = BrowserWindow.getAllWindows();
         for (var i = 0; i < ws.length; i++) {
             if (ws[i].isStartWindow) {
                 ws[i].close();
             }
-        };
+        }
 
         //Add image to recent files
         if (process.platform == 'darwin' || process.platform == 'windows') {
@@ -170,7 +173,7 @@ var Butler = {
         }
 
         w = w || BrowserWindow.getFocusedWindow();
-        if (typeof(w) == 'undefined' || w == null || w.isStartWindow || typeof(w.path) == 'undefined' || !w.unsaved) {
+        if (typeof(w) == 'undefined' || w === null || w.isStartWindow || typeof(w.path) == 'undefined' || !w.unsaved) {
             console.log("Unable to save");
             return false;
         }
@@ -284,6 +287,6 @@ var Butler = {
 
         Image.save(newPath, binary);
     }
-}
+};
 
 module.exports = Butler;

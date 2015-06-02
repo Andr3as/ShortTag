@@ -1,4 +1,4 @@
-var Loader = require(__dirname + '/Loader.js')
+var Loader = require(__dirname + '/Loader.js');
 
 var i18n = {
 
@@ -23,7 +23,7 @@ var i18n = {
         
         for (var i = 0; i < args.length; i++) {
             string = string.replace("${" + i + "}", args[i]);
-        };
+        }
 
         return string;
     },
@@ -35,6 +35,6 @@ var i18n = {
             return this.language[key.toLowerCase()];
         }
     }
-}
+};
 
 module.exports = i18n;

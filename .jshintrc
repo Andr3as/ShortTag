@@ -1,0 +1,7 @@
+{
+    "devel": false,
+    "indent" : 4,
+    "node": true,
+    "undef": true,
+    "predef": ["jQuery","process"]
+}

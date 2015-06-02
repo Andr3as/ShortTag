@@ -7,3 +7,4 @@ Electron.app
 
 #NPM
 node_modules/
+npm-debug.log

@@ -13,9 +13,12 @@ content = JSON.parse(content);
 if (typeof(exports) === 'object' && typeof(module) !== 'undefined') {
     module.exports = content;
 } else {
+    /* jshint browser: true */
     (function(global, $){
 
-        settings = {
+        var system = global.system;
+
+        global.settings = {
 
             content: content,
             
@@ -55,7 +58,7 @@ if (typeof(exports) === 'object' && typeof(module) !== 'undefined') {
             }
         };
 
-        settings.init();
+        global.settings.init();
 
     })(this, jQuery);
 }

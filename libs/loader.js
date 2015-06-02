@@ -15,14 +15,14 @@ var Loader = {
 	load: function(path, string) {
 		string = string || false;
 		if (string) {
-			return fs.readFileSync(path, {encoding: "utf-8"})
+			return fs.readFileSync(path, {encoding: "utf-8"});
 		} else {
 			return require(path);
 		}
 	},
 
 	loadMenu: function(name) {
-		return this.__load("menu", name)		
+		return this.__load("menu", name);		
 	},
 
 	loadLanguage: function() {
@@ -31,14 +31,14 @@ var Loader = {
 
 	loadTemplate: function(name, args) {
 		args = args || [];
-		if (args.length == 0) {
+		if (args.length === 0) {
 			//Try to load language template file
 			args = this.loadLanguageTemplate(name.replace("html", "json"));
 		}
 		var template = this.__load("templates", name, true);
 		for (var i = 0; i < args.length; i++) {
 			template = template.replace(new RegExp("\\$\\{" + i + "\\}", "g"), i18n(args[i]));
-		};
+		}
 		return template;
 	},
 
@@ -80,6 +80,6 @@ var Loader = {
 		
 		return this.load(this.app.basepath + "/res/" + res + "/" + name, string);
 	}
-}
+};
 
 module.exports = Loader;

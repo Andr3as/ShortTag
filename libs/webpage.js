@@ -1,20 +1,19 @@
+/* jshint browser: true */
 var remote = require('remote');
 var ipc = require('ipc');
 
 (function(global, $){
+
+    var system = global.system = {};
 
     $(function() {    
         system.init();
     });
 
     system = {
-
-        app: null,
         
         init: function() {
             var _this = this;
-            this.app = remote.getGlobal('app');
-            i18n = app.i18n;
             //Trans process listeners
             ipc.on('setContent', function(content){
                 $('.content').html(content);
@@ -32,16 +31,14 @@ var ipc = require('ipc');
                 });
                 //Scroll all labels to the right
                 $('.edit .informations td:nth-of-type(2) label').scrollLeft(100000);
-            })
+            });
             ipc.on('applyExif', function(exif){
                 console.log(exif);
                 $('.edit .exif tbody').html("");
                 var each = [exif.image, exif.exif, exif.gps];
                 for (var i = 0; i < each.length; i++) {
-                    $.each(each[i], function(j, item){
-                        _this.__addExifLine(j, item);
-                    });
-                };
+                    $.each(each[i], _this.__addExifLine.bind(_this));
+                }
             });
             ipc.on('getExifData', function(path){
                 var exif = {}, tag_name, value;
@@ -55,7 +52,7 @@ var ipc = require('ipc');
             });
             //Window clicklisteners
             $(document).on('click', '#dropzone', function(e){
-                _this.app.emit('open');
+                ipc.send('open');
             });
             $(window).resize(function(){
                 _this.setMaxDimmensions();
@@ -108,7 +105,7 @@ var ipc = require('ipc');
 
         __getTemplateLine: function(tag, value){
             tag = tag || "";
-            if (value != 0) {
+            if (value !== 0) {
                 value = value || "";
             }
             //Trim values

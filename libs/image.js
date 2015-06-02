@@ -31,23 +31,23 @@ var Image = {
                 } else if (typeof(piexif.GPSIFD[i]) != 'undefined') {
                     gps[piexif.GPSIFD[i]] = data[i];
                 }
-            };
+            }
             
             //zeroth[piexif.ImageIFD.Software] = "ShortTag";
 
-            var data = {};
+            var dump = {};
             if (!this.__isEmpty(zeroth)) {
-                data["0th"] = zeroth;
+                dump["0th"] = zeroth;
             }
             if (!this.__isEmpty(exif)) {
-                data["Exif"] = exif;
+                dump.Exif = exif;
             }
             if (!this.__isEmpty(gps)) {
-                data["GPS"] = gps;
+                dump.GPS = gps;
             }
 
-            data = this.__parseNumeric(data);
-            data = piexif.dump(data);
+            dump = this.__parseNumeric(dump);
+            data = piexif.dump(dump);
         }
 
         return piexif.insert(data, binary);
@@ -75,7 +75,7 @@ var Image = {
 
         for (var i = 0; i < dates.length; i++) {
             data[dates[i]] = this.__parseDate(data[dates[i]]);
-        };
+        }
 
         data = this.__concat(data, sizeOf(path));
 
@@ -134,7 +134,7 @@ var Image = {
 
             for (var i in data[j]) {
                 if (typeof(data[j][i]) == 'object') {
-                    if (data[j][i].type = "Buffer") {
+                    if (data[j][i].type == "Buffer") {
                         try {
                             data[j][i] = this.__decodeFromASCII(data[j][i].data);
                         } catch (e) {
@@ -153,8 +153,8 @@ var Image = {
         for (var i in one) {
             res[i] = one[i];
         }
-        for (var i in two) {
-            res[i] = two[i];
+        for (var j in two) {
+            res[j] = two[j];
         }
         return res;
     },
@@ -189,7 +189,7 @@ var Image = {
     },
 
     __isEmpty: function(obj) {
-        if (Object.keys(obj).length == 0) {
+        if (Object.keys(obj).length === 0) {
             return true;
         } else {
             return false;
@@ -239,6 +239,6 @@ var Image = {
 
         return data;
     }
-}
+};
 
 module.exports = Image;
