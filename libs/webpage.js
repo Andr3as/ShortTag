@@ -4,7 +4,7 @@ var ipc = require('ipc');
 
 (function(global, $){
 
-    var system = global.system = {};
+    var system = {};
 
     $(function() {    
         system.init();
@@ -154,5 +154,7 @@ var ipc = require('ipc');
             return whitespace.indexOf(str.charAt(0)) === -1 ? str : '';
         }
     };
+
+    global.system = system;
 
 })(this, jQuery);
