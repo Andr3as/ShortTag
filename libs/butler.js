@@ -72,7 +72,11 @@ var Butler = {
         });
         //IPC messages
         IPC.on('changedSettings', function(){
-            Dialog.showErrorBox(i18n("App restarts to apply new settings."), "");
+            if (app.OS.isDarwin()) {
+                Dialog.showErrorBox(i18n("App restarts to apply new settings."), "");
+            } else {
+                Dialog.showErrorBox(i18n("Notice!"), i18n("App restarts to apply new settings."));
+            }
             //Confirm dialog
             var exec = require('child_process').exec;
             exec(process.execPath + " " + app.basepath);
@@ -136,7 +140,7 @@ var Butler = {
         }
 
         //Add image to recent files
-        if (process.platform == 'darwin' || process.platform == 'windows') {
+        if (process.platform == 'darwin' || process.platform == 'win32' || process.platform == 'win64') {
             this.app.addRecentDocument(path);
         }
         
@@ -153,8 +157,12 @@ var Butler = {
     },
 
     openStartWindow: function() {
-        var _this = this;
-        var w = this.__openWindow({width: 520, height: 280, resizable: false}, true);
+        var _this = this,
+            height = 280;
+        if (this.app.OS.isWindows()) {
+            height = 320; // Space for menu
+        }
+        var w = this.__openWindow({width: 520, height: height, resizable: false}, true);
         var content = Loader.loadTemplate("start.html");
         w.webContents.on('did-finish-load', function() {
             w.webContents.send('setContent', content);
@@ -224,7 +232,11 @@ var Butler = {
 
     __openWebsite: function(url) {
         if (typeof(url) == 'string') {
-            exec("open " + url, function(){});
+            if (this.app.OS.isWindows()) {
+                exec("start " + url, function(){});
+            } else {
+                exec("open " + url, function(){});
+            }
         }
     },
 

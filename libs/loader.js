@@ -65,11 +65,12 @@ var Loader = {
 	},
 
 	__load: function(res, name, string) {
-		// process.platform
+		var common = this.app.OS.getCommonPlatform();
 		// locale & platform / locale / common & platform / common
 		var paths = [	this.app.basepath + "/res/" + res + "/" + settings.locale + "." + process.platform + "." + name,
 						this.app.basepath + "/res/" + res + "/" + settings.locale + "." + name,
-						this.app.basepath + "/res/" + res + "/" + process.platform + "." + name];
+						this.app.basepath + "/res/" + res + "/" + process.platform + "." + name,
+						this.app.basepath + "/res/" + res + "/" + common + "." + name];
 		
 		for (var i = 0; i < paths.length; i++) {
 			if (this.__exists(paths[i])) {

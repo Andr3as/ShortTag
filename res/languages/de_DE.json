@@ -37,6 +37,7 @@
 	"bring all to front": "Alle nach vorne bringen",
 
 	"help": "Hilfe",
+	"exif tags from exiftool": "Exif Tags von ExifTool",
 
 
 	"drop your file to open it": "Datei hierher ziehen zum Öffnen",
@@ -53,6 +54,7 @@
 
 	"settings": "Einstellungen",
 	"language": "Sprache",
+	"notice!": "Achtung!",
 	"app restarts to apply new settings.": "Die Anwendung wird neu gestartet um neue Einstellugen anzuwenden.",
 	"unable to save settings!": "Speichern der Einstellungen nicht möglich!"
 }

@@ -5,6 +5,7 @@
     <script>
         remote = require('remote');
         app = remote.require('app');
+        os = require('./libs/os.js');
         document.title = app.getName();
         //Workaround since including with script tag does not work
         window.$ = window.jQuery = require('./vendor/jquery/jquery.min.js');
@@ -12,9 +13,15 @@
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="libs/webpage.js"></script>
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="styles/main.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="vendor/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet"/>
+    <link href="styles/main.css" rel="stylesheet"/>
+    <script>
+        //Load system specific style sheet
+        if (os.isWindows) {
+            document.write('<link href="styles/windows.main.css" rel="stylesheet"/>');
+        }
+    </script>
 </head>
 <body>
     <div class="content">

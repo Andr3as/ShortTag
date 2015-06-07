@@ -1,0 +1,28 @@
+/* Special windows styles */
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    background: none;
+    opacity: 0.5;
+    position: absolute;
+}
+::-webkit-scrollbar-thumb {
+    background: gray;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 0 1px #fff;
+}
+
+::-webkit-scrollbar:horizontal  {
+    height: 5px;
+    margin-left: 2px;
+    bottom: 2px;
+    left: 0;
+}
+
+::-webkit-scrollbar:vertical  {
+    width: 5px;
+    margin-top: 2px;
+    right: 2px;
+    top: 0;
+}

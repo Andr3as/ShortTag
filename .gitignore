@@ -4,6 +4,7 @@ ShortExif.sublime-workspace
 
 #Electron app
 Electron.app
+electron_win/
 
 #NPM
 node_modules/

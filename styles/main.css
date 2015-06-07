@@ -39,7 +39,7 @@ body {
 }
 
 .edit>div {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .edit .exif td {
@@ -60,7 +60,7 @@ body {
 }
 
 .edit .informations td:nth-of-type(2) label {
-    overflow: scroll;
+    overflow: auto;
 }
 
 #image {
