@@ -1,5 +1,7 @@
 body {
     background: #303030;
+    -webkit-user-select: none;
+            user-select: none;
 }
 
 .input-group-addon {

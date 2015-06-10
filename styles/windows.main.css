@@ -7,10 +7,12 @@
     position: absolute;
 }
 ::-webkit-scrollbar-thumb {
-    background: gray;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 20px;
-    box-shadow: 0 0 1px #fff;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 ::-webkit-scrollbar:horizontal  {

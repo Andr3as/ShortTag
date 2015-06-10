@@ -25,7 +25,7 @@ Butler.init(app);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-    if (app.OS.isDarwin()) {
+    if (!app.OS.isDarwin()) {
         app.quit();
     }
 });
