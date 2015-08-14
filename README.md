@@ -2,6 +2,10 @@
 
 A small tool to edit fast exif data of an image.
 
+##Warning
+
+This software is still beta. It has some problems to handle unknown data. This means unknown exif data gets overwritten and deleted. You should not overwrite the original image because of this problems.
+
 ##Run the app
 
 ###Users
@@ -29,7 +33,6 @@ Download the app for your system [here](https://github.com/Andr3as/ShortTag/rele
 		- on OS X: Rename `CFBundleDisplayName`, `CFBundleIdentifier` and `CFBundleName` in `Electron.app/Contents/Info.plist`
 	- [Details](https://github.com/atom/electron/blob/master/docs/tutorial/application-distribution.md)
 
-
 ##Credits
 
 - [Bootstrap](http://getbootstrap.com): MIT license
@@ -40,6 +43,7 @@ Download the app for your system [here](https://github.com/Andr3as/ShortTag/rele
 - [jQuery](http://jquery.com): MIT license
 - [node-exif](https://www.npmjs.com/package/exif): MIT license
 - [piexifjs](https://www.npmjs.com/package/piexifjs): MIT license
+- [typeahead.js](https://github.com/twitter/typeahead.js): MIT license
 
 ##License
 

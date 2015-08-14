@@ -1,6 +1,6 @@
 #Sublime files
-ShortExif.sublime-project
-ShortExif.sublime-workspace
+*.sublime-project
+*.sublime-workspace
 
 #Electron app
 Electron.app
