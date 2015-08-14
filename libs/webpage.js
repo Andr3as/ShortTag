@@ -11,6 +11,8 @@ var ipc = require('ipc');
     });
 
     system = {
+
+        categories : [],
         
         init: function() {
             var _this = this;
@@ -39,6 +41,8 @@ var ipc = require('ipc');
                 for (var i = 0; i < each.length; i++) {
                     $.each(each[i], _this.__addExifLine.bind(_this));
                 }
+                _this.__extractTypeahead(exif.categories);
+                _this.__startTypeahead();
             });
             ipc.on('getExifData', function(path){
                 var exif = {}, tag_name, value;
@@ -70,6 +74,7 @@ var ipc = require('ipc');
             $(document).on('click', '.edit .addExifLine', function(){
                 _this.__addExifLine();
                 _this.__setWindowAsUnsaved();
+                _this.__startTypeahead();
             });
             $(document).on('click', '.edit .rmAllLines', function(){
                 $('.edit .exif tbody tr').remove();
@@ -98,9 +103,19 @@ var ipc = require('ipc');
         },
 
         __addExifLine: function(tag, value) {
+            var _this = this;
             var line = this.__getTemplateLine(tag, value);
             $('.edit .exif tbody').append(line);
             this.setMaxDimmensions();
+        },
+
+        __extractTypeahead: function(categories) {
+            var _this = this;
+            $.each(categories, function(i, item){
+                $.each(item, function(tag){
+                    _this.categories.push(tag);
+                });
+            })
         },
 
         __getTemplateLine: function(tag, value){
@@ -118,6 +133,27 @@ var ipc = require('ipc');
 
         __setWindowAsUnsaved: function() {
             remote.getCurrentWindow().unsaved = true;
+        },
+
+        __startTypeahead: function() {
+            var _this = this;
+            //Call typeahead
+            // constructs the suggestion engine
+            var categories = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: _this.categories
+            });
+            
+            $('.edit .exif .tag_name').typeahead({
+              hint: true,
+              highlight: true,
+              minLength: 1
+            },
+            {
+              name: 'Categories',
+              source: categories
+            });
         },
 
         __trim: function(str, charlist) {
