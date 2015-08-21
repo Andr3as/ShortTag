@@ -115,7 +115,7 @@ var ipc = require('ipc');
                 $.each(item, function(tag){
                     _this.categories.push(tag);
                 });
-            })
+            });
         },
 
         __getTemplateLine: function(tag, value){

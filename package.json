@@ -1,7 +1,7 @@
 {
     "name"    : "shorttags",
     "productName": "ShortTags",
-    "version" : "0.5.0",
+    "version" : "0.5.1",
     "description": "A small tool to edit fast exif data of an image.",
     "author"  : {
         "name" : "Andreas Baumann",

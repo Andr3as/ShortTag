@@ -1,4 +1,6 @@
-app = require('app');  // Module to control application life.
+/* globals app */
+// Module to control application life.
+app = require('app'); // jshint ignore:line
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var Menu = require('menu');
 var MenuItem = require('menu-item');
@@ -47,6 +49,6 @@ app.on('ready', function() {
 
     // Load main window menu
     var template = Loader.loadMenu('app.js')(app);
-    menu = Menu.buildFromTemplate(template);
+    var menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
 });
