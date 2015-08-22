@@ -1,7 +1,7 @@
 {
     "name"    : "shorttags",
     "productName": "ShortTags",
-    "version" : "0.5.1",
+    "version" : "0.5.3",
     "description": "A small tool to edit fast exif data of an image.",
     "author"  : {
         "name" : "Andreas Baumann",
@@ -24,7 +24,8 @@
         "url" : "https://github.com/Andr3as/ShortTags.git"
     },
     "scripts": {
-        "lint": "jshint */**.js && csslint */**.css"
+        "lint": "jshint *.js libs/*.js builds/*.js",
+        "build-mac": "iojs builds/build-mac.js"
     },
 
     "main"    : "main.js"

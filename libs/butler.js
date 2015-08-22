@@ -72,11 +72,7 @@ var Butler = {
         });
         //IPC messages
         IPC.on('changedSettings', function(){
-            if (app.OS.isDarwin()) {
-                Dialog.showErrorBox(i18n("App restarts to apply new settings."), "");
-            } else {
-                Dialog.showErrorBox(i18n("Notice!"), i18n("App restarts to apply new settings."));
-            }
+            _this.__showError(i18n("App restarts to apply new settings."));
             //Confirm dialog
             var exec = require('child_process').exec;
             exec(process.execPath + " " + app.basepath);
@@ -84,7 +80,7 @@ var Butler = {
         });
         IPC.on('error', function(e, args){
             if (typeof(args.title) != 'undefined' && typeof(args.content) != 'undefined') {
-                Dialog.showErrorBox(i18n(args.title), i18n(args.content));
+                _this.__showError(i18n(args.title), i18n(args.content));
             }
         });
         IPC.on('open', function(){
@@ -181,7 +177,10 @@ var Butler = {
         }
 
         w = w || BrowserWindow.getFocusedWindow();
-        if (typeof(w) == 'undefined' || w === null || w.isStartWindow || typeof(w.path) == 'undefined' || !w.unsaved) {
+        if (typeof(w) == 'undefined' || w === null || w.isStartWindow || typeof(w.path) == 'undefined') {
+            if (!w.isStartWindow) {
+                this.__showError(i18n("Unable to save"));
+            }
             console.log("Unable to save");
             return false;
         }
@@ -298,6 +297,15 @@ var Butler = {
         w.unsaved = false;
 
         Image.save(newPath, binary);
+    },
+
+    __showError: function(msg, title) {
+        title = title || i18n("Notice!");
+        if (this.app.OS.isDarwin()) {
+            Dialog.showErrorBox(msg, "");
+        } else {
+            Dialog.showErrorBox(title, msg);
+        }
     }
 };
 
