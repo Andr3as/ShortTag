@@ -11,7 +11,8 @@
     "license" : "MIT",
     "homepage": "https://andrano.de",
     "devDependencies": {
-        "jshint": "latest"
+        "jshint": "latest",
+        "fs-extra": "latest"
     },
     "dependencies": {
         "exif": "0.4.0",
