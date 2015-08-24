@@ -26,7 +26,8 @@
     },
     "scripts": {
         "lint": "jshint *.js libs/*.js builds/*.js",
-        "build-mac": "iojs builds/build-mac.js"
+        "build-mac": "iojs builds/build-mac.js",
+        "build-win": "iojs builds/build-win.js"
     },
 
     "main"    : "main.js"

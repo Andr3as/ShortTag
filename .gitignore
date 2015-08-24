@@ -9,3 +9,7 @@ electron_win/
 #NPM
 node_modules/
 npm-debug.log
+
+#Builds
+builds/ShortTag
+builds/ShortTag.app
