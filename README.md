@@ -1,3 +1,7 @@
+#Project Status
+
+This project is still beta. Please open an issue to report any problems.
+
 #ShortTags
 
 A small tool to edit fast exif data of an image.
